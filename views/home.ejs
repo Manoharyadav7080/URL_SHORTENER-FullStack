@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #333;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 2.5rem;
+            margin-bottom:2px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            margin-top: 20px;
+            width: 60%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        td {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 300px;
+            /* Adjust based on your layout */
+            white-space: normal;/
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            background-color: #f9f9f9;
+            /* Light gray background */
+            padding: 15px;
+            /* Space inside the paragraph box */
+            border-radius: 8px;
+            /* Rounded corners */
+            border: 1px solid #ddd;
+            /* Light border */
+            font-family: 'Georgia', serif;
+            font-size: 16px;
+            color: #333;
+        }
+
+        p::first-letter {
+            font-size: 200%;
+            color: #ff6347;
+            /* Tomato color for the first letter */
+            font-weight: bold;
+            float: left;
+            margin-right: 10px;
+            line-height: 1;
+        }
+
+        h1::first-letter {
+            font-size: 150%;
+            color: #4CAF50;
+            /* Tomato color for the first letter */
+            font-weight: bold;
+            float: left;
+            margin-right: 10px;
+            line-height: 1;
+        }
+
+        /* Container for input */
+        .input-container {
+            margin: 50px;
+            text-align: center;
+        }
+
+        /* Label styling */
+        .input-container label {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Input box styling */
+        .input-container input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px 15px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            outline: none;
+            /* Removes default outline */
+        }
+
+        /* Input box focus effect */
+        .input-container input[type="text"]:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+            /* Adds a glowing effect */
+        }
+
+        /* Placeholder text styling */
+        .input-container input[type="text"]::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Change input border on hover */
+        .input-container input[type="text"]:hover {
+            border-color: #888;
+        }
+
+        /* Custom transition for input box interaction */
+        .input-container input[type="text"] {
+            transition: all 0.3s ease;
+        }
+
+        /* Add focus transition effect */
+        .input-container input[type="text"]:focus {
+            border-color: #0a74da;
+            background-color: #eef6ff;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1 class="nav">URL Shortener </h1>
+
+    <% if (locals.id) { %>
+        <p>URL Generated : http://localhost:8000/url/<%= id %>
+        </p>
+
+        <% } %>
+            <div class="input-container">
+                <form method="POST" action="/url">
+                    <label> Enter Your Original URL </label>
+                    <input type="text" name="url" id="textInput" placeholder="https://example.com">
+                    <button type="submit"> Genrate</button>
+                </form>
+            </div>
+            <% if (locals.urls) { %>
+                <table>
+                    <thead>
+                        <th>S.No</th>
+                        <th>ShortId</th>
+                        <th>Redirect</th>
+                        <th>Clicks</th>
+                    </thead>
+                    </tbody>
+                    <% urls.forEach( (url , index)=> { %>
+                        <tr>
+                            <td>
+                                <%= index+1 %>
+                            </td>
+                            <td>
+                                <%= url.shortId %>
+                            </td>
+                            <td style="overflow: hiddeauto;">
+                                <%= url.redirectURL %>
+                            </td>
+                            <td>
+                                <%= url.visitHistory.length %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                            </tbody>
+                </table>
+                <% } %>
+                    </div>
+</body>
+
+</html>
